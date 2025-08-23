@@ -27,6 +27,12 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidation(ValidationException exception) {
+        return new ErrorResponse("ValidationException", exception.getMessage(), LocalDateTime.now());
+    }
+
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleError(Throwable exception) {
         return new ErrorResponse("Throwable", exception.getMessage(), LocalDateTime.now());
